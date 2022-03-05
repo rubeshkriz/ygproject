@@ -1,0 +1,26 @@
+.BrandName
+{
+    font-size: 20px;
+}
+
+.dataTables_empty{
+    display: none;
+}
+
+#DataTables_Table_0_filter{
+    display: none;
+}
+
+.form-check-input{
+    margin: 0;
+}
+
+#table-btn{
+    margin-top: 20px;
+}
+
+/* .modal-content{
+    background-color: white;
+    width: 100%;
+} */
+
