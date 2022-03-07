@@ -8,7 +8,7 @@ function Footer() {
         			{/* <!-- Footer --> */}
 			<div className="navbar navbar-expand-lg navbar-light">
 				<div className="navbar-collapse collapse " id="navbar-footer">
-					<span className="navbar-text ">
+					<span id="footer" className="navbar-text">
 						&copy; 2022 Developed By: <Link to="#">Indus Novature</Link>
 					</span>					
 				</div>

@@ -74,7 +74,7 @@ const Login = () => {
 			<div id="logbox" class="content">
 
 				{/* <!-- Login form --> */}
-           <pre>{JSON.stringify(FormValues, undefined, 2)}</pre>                      
+           {/* <pre>{JSON.stringify(FormValues, undefined, 2)}</pre>                       */}
 
 				<form class="login-form"  onSubmit={handleSubmit}>
 

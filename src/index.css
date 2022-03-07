@@ -21,23 +21,23 @@ code {
   outline: none;
 }
 .pagination > .active > a{
-  background-color: #333; ;
-  border-color: #333; ;
+  background-color: #E67E22; ;
+  border-color: #E67E22; ;
   color: #fff;
 }
 .pagination > li > a{
-  border: 1px solid #333; ;
+  border: 1px solid #E67E22; ;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
 }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-  background-color: #333; ;
-  border-color: #333;;
+  background-color: #E67E22; ;
+  border-color: #E67E22;;
   outline: none ;
 }
 .pagination > li > a, .pagination > li > span{
-  color: #333;
+  color: #E67E22;
 }
 .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
   border-radius: unset
@@ -109,3 +109,18 @@ code {
   margin-top: 50px;
 }
 
+.navbar{
+  background-color: #E67E22;
+}
+.btn{
+  background-color: #E67E22;
+  border: none;
+}
+.btn:hover{
+  background-color: #D35400;
+  border: none;
+}
+
+#footer {
+  color: #fff;
+}

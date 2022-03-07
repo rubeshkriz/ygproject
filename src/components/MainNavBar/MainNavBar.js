@@ -1,9 +1,23 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { NavLink } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import $ from "jquery";
 import Cookies from 'js-cookie'
 
 const MainNavBar = () => {
+	useEffect(() => {
+		$('#point').click(function(){
+			$('body').toggleClass('sidebar-xs');
+			// $('body').addClass('sidebar-xs sidebar-mobile-main');
+			// $('body').toogleClass('sidebar-mobile-main');
+		});
+		$('#pointMobile').click(function(){
+			$('body').toggleClass('sidebar-mobile-main');
+			// $('body').addClass('sidebar-xs sidebar-mobile-main');
+			// $('body').toogleClass('sidebar-mobile-main');
+		});
+	},[]);
+
 	const Logout = () => {
 		Cookies.remove("empID");
 		Cookies.remove("id");
@@ -22,7 +36,7 @@ const MainNavBar = () => {
 		<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
 			<i className="icon-tree5"></i>
 		</button>
-		<button className="navbar-toggler sidebar-mobile-main-toggle" type="button">
+		<button id="pointMobile" className="navbar-toggler sidebar-mobile-main-toggle" type="button">
 			<i className="icon-paragraph-justify3"></i>
 		</button>
 	</div>
@@ -33,7 +47,7 @@ const MainNavBar = () => {
 				{/* <a href="#" className="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
 					<i className="icon-paragraph-justify3"></i>
 				</a> */}
-				<Link to="#" className="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+				<Link to="#" id="point" className="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
 					<i className="icon-paragraph-justify3"></i>
 				</Link>
 			</li>
@@ -43,6 +57,8 @@ const MainNavBar = () => {
 						<i className="icon-people"></i>
 						<span className="d-md-none ml-2">Users</span>
 					</Link>
+
+
 					
 					<div className="dropdown-menu dropdown-menu-right dropdown-content wmin-md-300">
 						<div className="dropdown-content-header">
