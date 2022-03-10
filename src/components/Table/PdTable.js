@@ -182,13 +182,13 @@ const PdTable = (props) => {
     <div className="container">
       <div className="row">
 
-        <div className="col-md-4 col-sm-4">
+        <div className="col-md-3 col-sm-3">
           <input
 
             ref={inputEl}
             type="text"
             placeholder="Search Result"
-            className="prompt"
+            className="form-control smInput"
             value={searchTerm}
             onChange={getSearchTerm}
           />

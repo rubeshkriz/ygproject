@@ -8,45 +8,25 @@ function ADRForm() {
       const [FormValues, setFormValues] = useState(initialValues);    
       const [formErrors, setFormErrors] = useState({});    
       const [ItemList, setItemList] = useState([]);    
-      const [isSubmit, setIsSubmit] = useState(false);
-  
-      const [searchTerm, setsearchTerm] = useState(" ");
-    const [searchResults, setSearchResults] = useState([]);
-  
-      const searchHandler = (searchTerm) => {
-        setsearchTerm(searchTerm);
-    
-        if (searchTerm !== "") {
-          const newTableList = ItemList.filter((fidata) => {
-            return Object.values(fidata)
-              .join(" ")
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase());
-          });
-          setSearchResults(newTableList);
-          console.log(searchResults)
-  
-        } else {
-          setSearchResults(ItemList);
-        }
-      }
-  
-      if (searchResults.length > 0) {
-        console.log(`searchResults ok`)
-        searchResults.map((searchResult)=>{
-          console.log(searchResult.ItemName)
-          
-          itemsSummary = searchResult.ItemName
-          // setFormValues.Dscription=searchResult.ItemName;
-        })
-      }else{
-          console.log("nothing")
-        }
+      const [isSubmit, setIsSubmit] = useState(false);     
   
       let handleChange = (e) => {
-          const {name, value} = e.target;
-          setFormValues({ ...FormValues, [name]: value});
-          console.log(FormValues)
+        const {name, value} = e.target;
+        if(name === "ItemCode"){
+          let AllItemLists = ItemList
+          let result = AllItemLists.filter(checkID)
+          function checkID(AllItemList) {
+            // console.log(AllItemList.ItemCode)
+            return AllItemList.ItemCode == value;
+          }
+          // console.log(`result= ${result[0].ItemName}`);
+          setFormValues({ ...FormValues, ItemDescription: result[0].ItemName,Size: result[0].FrgnName});
+          console.log(FormValues);
+        }else{
+        console.log(`name${name}: values${value}`)
+        setFormValues({ ...FormValues, [name]: value});
+        console.log(FormValues)}
+    
       }
       const validate = (values) => {
           const errors =  {};
@@ -123,10 +103,6 @@ function ADRForm() {
           }
         }
   
-        const getSearchTerm = () => {
-          searchHandler(inputEl.current.value);
-        };
-
        
   
     return (
@@ -135,7 +111,7 @@ function ADRForm() {
           
                       <div className="col-lg-12">
                           <div className="card">
-           {/* <pre>{JSON.stringify(FormValues, undefined, 2)}</pre>                        */}
+           <pre>{JSON.stringify(FormValues, undefined, 2)}</pre>                       
                               <div className="card-body">
                                   <form onSubmit={handleSubmit}>
                                       <div className="row">
@@ -188,7 +164,7 @@ function ADRForm() {
                                               <div className="form-group">
                                                   <label>Product Description</label>
                                                   {/* <input type="text" name="ItemDescription" className="form-control" value={itemsSummary} onChange={handleChange} placeholder="Product Description"/> */}
-                                                  <input type="text" name="ItemDescription" className="form-control" values={FormValues.ItemDescription} onChange={handleChange} placeholder="Item ItemDescription"/>
+                                                  <input type="text" name="ItemDescription" className="form-control" value={FormValues.ItemDescription} onChange={handleChange} placeholder="ItemDescription"/>
                                                   
                                                   <p>{formErrors.ItemDescription}</p>
                                               
@@ -198,7 +174,7 @@ function ADRForm() {
                                           <div className="col-md-3">
                                               <div className="form-group">
                                                   <label>Item Size</label>
-                                                  <input type="text" name="Size" className="form-control" values={FormValues.Size} onChange={handleChange} placeholder="Item Size"/>
+                                                  <input type="text" name="Size" className="form-control" value={FormValues.Size} onChange={handleChange} placeholder="Item Size"/>
                                                   <p>{formErrors.Size}</p>
                                               
                                               </div>

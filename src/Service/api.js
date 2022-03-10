@@ -17,6 +17,12 @@ export const customerOutsanding = async () => {
 export const penaltyDetails = async () => {
     return await axios.get(`${usersUrl}/api/penaltyDetails/view/3`);
 }
+export const CourierDetails = async () => {
+    return await axios.get(`${usersUrl}/api/CourierDetails/view/1C03U`);
+}
+export const Distributor = async () => {
+    return await axios.get(`${usersUrl}/api/Distributor/view/1C03U`);
+}
 export const stockReport = async () => {
     return await axios.get(`${usersUrl}/api/stockReport/view/3`);
 }

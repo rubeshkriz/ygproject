@@ -1,9 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { PersonBadge } from 'react-bootstrap-icons';
 import {addPO, poItemData} from '../../Service/api';
+import DataExtensionSelect from  "../../js/DataExtensionSelect";
+import Appj from "../../js/Appj";
+import FormSelect from "../../js/FormSelect";
+import $ from "jquery";
+import ItemNow from './ItemNow';
+import BookView from "./bookView";
+import "./styles.css";
 
 
 
 function Waste() {
+  let ItemDetailsForm = () => {
+    "<ItemNow />"
+  }
+
+  useEffect(() => {
+    var output = '';
+		$('#ItemAdd').click(function(){
+      $('#looprow').after(output)})
+	},[]); 
+  
   let itemsSummary
   const inputEl = useRef("");
     const initialValues = {id:"", DocEntry:"", CardCode:"", CardName:"",  PoNumber:"", Status:"", DocDate:"", Utype:"", TaxDate:"",
@@ -13,43 +31,31 @@ function Waste() {
     const [ItemList, setItemList] = useState([]);    
     const [isSubmit, setIsSubmit] = useState(false);
 
-    const [searchTerm, setsearchTerm] = useState(" ");
-  const [searchResults, setSearchResults] = useState([]);
 
-    const searchHandler = (searchTerm) => {
-      setsearchTerm(searchTerm);
-  
-      if (searchTerm !== "") {
-        const newTableList = ItemList.filter((fidata) => {
-          return Object.values(fidata)
-            .join(" ")
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
-        });
-        setSearchResults(newTableList);
-        console.log(searchResults)
+    // let handleChangeDate = (e) => {
+    //   console.log(e)
+    // }
+    
 
-      } else {
-        setSearchResults(ItemList);
-      }
-    }
-
-    if (searchResults.length > 0) {
-      console.log(`searchResults ok`)
-      searchResults.map((searchResult)=>{
-        console.log(searchResult.ItemName)
-        
-        itemsSummary = searchResult.ItemName
-        // setFormValues.Dscription=searchResult.ItemName;
-      })
-    }else{
-        console.log("nothing")
-      }
-
+    
     let handleChange = (e) => {
         const {name, value} = e.target;
+        if(name === "ItemCode"){
+          let AllItemLists = ItemList
+          let result = AllItemLists.filter(checkID)
+          function checkID(AllItemList) {
+            // console.log(AllItemList.ItemCode)
+
+            return AllItemList.ItemCode == value;
+          }
+          // console.log(`result= ${result[0].ItemName}`);
+          setFormValues({ ...FormValues, Dscription: result[0].ItemName});
+          console.log(FormValues);
+
+        }else{
+        console.log(`name${name}: values${value}`)
         setFormValues({ ...FormValues, [name]: value});
-        console.log(FormValues)
+        console.log(FormValues)}
     }
     const validate = (values) => {
         const errors =  {};
@@ -126,8 +132,7 @@ function Waste() {
     }
 
     useEffect(() => {
-        getitemDetails();
-        console.log(formErrors);
+         getitemDetails();
         if (Object.keys(formErrors).length === 0 && isSubmit) {
           console.log(FormValues);
         }
@@ -146,9 +151,7 @@ function Waste() {
         }
       }
 
-      const getSearchTerm = () => {
-        searchHandler(inputEl.current.value);
-      };
+      
 
   return (
     <div>
@@ -189,7 +192,7 @@ function Waste() {
                                         <div className="col-md-3">
 											<div className="form-group">
 												<label>Document Series</label>
-				                                <input type="text" name="Utype" className="form-control" values={FormValues.Utype} onChange={handleChange} placeholder="Document Series"/>
+				                                <input type="text" name="Utype" className="form-control" values="" onChange={handleChange} placeholder="Document Series"/>
                                                 <p>{formErrors.Utype}</p>
 			                                
                                             </div>
@@ -209,7 +212,8 @@ function Waste() {
 										<div className="col-md-4">
 											<div className="form-group">
 												<label>Document Date</label>
-				                                <input type="text" name="DocDate" className="form-control" values={FormValues.DocDate} onChange={handleChange} placeholder="Document Date"/>
+                        {/* <input type="text" class="form-control daterange-single" name="DocDate" values="05/09/2022" onChange={handleChange}/> */}
+                                        <input type="text" id="datePicker" name="DocDate" className="form-control" values={FormValues.DocDate} onChange={handleChange} placeholder="Document Date"/>
                                                 <p>{formErrors.DocDate}</p>
 			                                
                                             </div>
@@ -255,83 +259,101 @@ function Waste() {
 
                                     <h4>Item Details</h4>
 
-                                    <div className="row">
-										<div className="col-md-2">
-											<div className="form-group">
-												<label>Item Code</label>
-                  <input ref={inputEl} type="text" placeholder="Item Code" className="form-control" value={searchTerm} onChange={getSearchTerm} />
-				                                
-                                        {/* <input type="text" name="ItemCode" className="form-control" values={FormValues.ItemCode} onChange={handleChange} placeholder="col-md-2"/> */}
-                                                <p>{formErrors.ItemCode}</p>
-			                                
-                                            </div>
-										</div>
+                         {ItemDetailsForm}
+                         <div id="looprow" className="row">
+    <div className="col-md-2">
+      <div className="form-group">
+        <label>Item Code</label>		                                
+                        <input type="text" name="ItemCode" className="form-control" values={FormValues.ItemCode} onChange={handleChange} placeholder="Item Code"/>
+                                <p>{formErrors.ItemCode}</p>
+                      
+                            </div>
+       {/* <div class="form-group">
+  <label>Results background color</label>
+  <select multiple="multiple" class="form-control select" data-container-css-class="bg-teal-400" data-fouc>
+    <optgroup label="Mountain Time Zone">
+      <option value="AZ" selected>Arizona</option>
+      <option value="CO">Colorado</option>
+      <option value="ID">Idaho</option>
+      <option value="WY">Wyoming</option>
+    </optgroup>
+    <optgroup label="Central Time Zone">
+      <option value="IL" selected>Illinois</option>
+      <option value="IA">Iowa</option>
+      <option value="KS" selected>Kansas</option>
+      <option value="KY">Kentucky</option>
+    </optgroup>
+  </select>
+</div> */}
+    </div>
 
-										<div className="col-md-3">
-											<div className="form-group">
-												<label>Item Name</label>
-				                                <input type="text" name="Dscription" className="form-control" value={itemsSummary} onChange={handleChange} placeholder="Item Name"/>
-                                                <p>{formErrors.Dscription}</p>
-			                                
-                                            </div>
-										</div>
+    <div className="col-md-3">
+      <div className="form-group">
+        <label>Item Name</label>
+                        <input type="text" name="Dscription" className="form-control" value={FormValues.Dscription} onChange={handleChange} placeholder="Item Name"/>
+                                <p>{formErrors.Dscription}</p>
+                      
+                            </div>
+    </div>
 
-                                        <div className="col-md-1">
-											<div className="form-group">
-												<label>Quantity</label>
-				                                <input type="text" name="Quantity" className="form-control" values={FormValues.Quantity} onChange={handleChange} placeholder="Qty"/>
-                                                <p>{formErrors.Quantity}</p>
-			                                
-                                            </div>
-										</div>
+                        <div className="col-md-1">
+      <div className="form-group">
+        <label>Quantity</label>
+                        <input type="text" name="Quantity" className="form-control" values={FormValues.Quantity} onChange={handleChange} placeholder="Qty"/>
+                                <p>{formErrors.Quantity}</p>
+                      
+                            </div>
+    </div>
 
-                                        <div className="col-md-1">
-											<div className="form-group">
-												<label>UOM</label>
-				                                <input type="text" name="UOMCode" className="form-control" values={FormValues.UOMCode} onChange={handleChange} placeholder="UOM"/>
-                                                <p>{formErrors.UOMCode}</p>
-			                                
-                                            </div>
-										</div>
+                        <div className="col-md-1">
+      <div className="form-group">
+        <label>UOM</label>
+                        <input type="text" name="UOMCode" className="form-control" values={FormValues.UOMCode} onChange={handleChange} placeholder="UOM"/>
+                                <p>{formErrors.UOMCode}</p>
+                      
+                            </div>
+    </div>
 
-                                        <div className="col-md-1">
-											<div className="form-group">
-												<label>Price</label>
-				                                <input type="text" name="Price" className="form-control" values={FormValues.Price} onChange={handleChange} placeholder="Price"/>
-                                                <p>{formErrors.Price}</p>
-			                                
-                                            </div>
-										</div>
+                        <div className="col-md-1">
+      <div className="form-group">
+        <label>Price</label>
+                        <input type="text" name="Price" className="form-control" values={FormValues.Price} onChange={handleChange} placeholder="Price"/>
+                                <p>{formErrors.Price}</p>
+                      
+                            </div>
+    </div>
 
-										<div className="col-md-1">
-											<div className="form-group">
-												<label>Discount</label>
-				                                <input type="text" name="Discount" className="form-control" values={FormValues.Discount} onChange={handleChange} placeholder="%"/>
-                                                <p>{formErrors.Discount}</p>
-			                                
-                                            </div>
-										</div>
+    <div className="col-md-1">
+      <div className="form-group">
+        <label>Discount</label>
+                        <input type="text" name="Discount" className="form-control" values={FormValues.Discount} onChange={handleChange} placeholder="%"/>
+                                <p>{formErrors.Discount}</p>
+                      
+                            </div>
+    </div>
 
-                                        <div className="col-md-1">
-											<div className="form-group">
-												<label>Tax</label>
-				                                <input type="text" name="TaxOnly" className="form-control" values={FormValues.TaxOnly} onChange={handleChange} placeholder="Tax"/>
-                                                <p>{formErrors.TaxOnly}</p>
-			                                
-                                            </div>
-										</div>
+                        <div className="col-md-1">
+      <div className="form-group">
+        <label>Tax</label>
+                        <input type="text" name="TaxOnly" className="form-control" values={FormValues.TaxOnly} onChange={handleChange} placeholder="Tax"/>
+                                <p>{formErrors.TaxOnly}</p>
+                      
+                            </div>
+    </div>
 
-                                        <div className="col-md-2">
-											<div className="form-group">
-												<label>Total</label>
-				                                <input type="text" name="Total" className="form-control" values={FormValues.Total} onChange={handleChange} placeholder="Total"/>
-                                                <p>{formErrors.Total}</p>
-			                                
-                                            </div>
-										</div>
-									</div>
+                        <div className="col-md-2">
+      <div className="form-group">
+        <label>Total</label>
+                        <input type="text" name="Total" className="form-control" values={FormValues.Total} onChange={handleChange} placeholder="Total"/>
+                                <p>{formErrors.Total}</p>
+                      
+                            </div>
+    </div>
+  </div>
+  <BookView />
 
-			                        <div className="text-right">
+                  
+                              <div className="text-right">
 			                        	<button type="submit" className="btn btn-primary">Submit <i className="icon-paperplane ml-2"></i></button>
 			                        </div>
 		                        </form>
@@ -339,6 +361,9 @@ function Waste() {
 						</div>
 					</div>
 				</div>
+        {DataExtensionSelect}
+        {Appj}
+        {FormSelect}
     </div>
   )
 }

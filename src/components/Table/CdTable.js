@@ -1,19 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactPaginate from 'react-paginate';
 
-import { getSalesInvoice } from '../../Service/api';
-import SiModal from "../OurModal/SiModal"
-import Cookies from 'js-cookie'
-import { useHistory } from 'react-router-dom';
+import { CourierDetails } from '../../Service/api';
+// import PdModal from "../OurModal/PdModal"
 
 
 
-
-
-const SiTable = (props) => {
-  const history = useHistory();
-	let clientEmpId 
-	let clientToken 
+const CdTable = (props) => {
 
   const inputEl = useRef("");
 
@@ -73,14 +66,7 @@ const SiTable = (props) => {
   }, []);
 
   const getSalesQuotationDatas = async () => {
-		// clientEmpId = localStorage.getItem("empID");
-		clientEmpId = Cookies.get("empID")
-		clientToken = Cookies.get("token")
-    if(!clientToken){
-      history.push('/Login')
-    }
-
-    let response = await getSalesInvoice(clientToken,clientEmpId);
+    let response = await CourierDetails();
     if (response) {
       setList(response.data.message);
       var data = response.data.message;
@@ -150,7 +136,7 @@ const SiTable = (props) => {
 
     resultData = searchResults.map((salesQuanty) => (
       <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>
-        <th scope="row">
+        {/* <th scope="row">
           <input
             type="checkbox"
             checked={salesQuanty.selected}
@@ -158,17 +144,26 @@ const SiTable = (props) => {
             id="rowcheck{salesQuanty.DocNum}"
             onChange={(e) => onItemCheck(e, salesQuanty)}
           />
-        </th>
-        <td>{salesQuanty.DocNum}</td>
-        <td>{stringSplit(salesQuanty.DocDate)}</td>
-        <td>{salesQuanty.CardName}</td>
-        <td>{salesQuanty.DocTotal}</td>
+        </th> */}
+        <td>{salesQuanty.U_Voucher}</td>
+        <td>{stringSplit(salesQuanty.U_VouchrDte)}</td>
+        <td>{salesQuanty.U_CardCode}</td>
+        <td>{salesQuanty.U_CardName}</td>
+        <td>{salesQuanty.U_ItemCode}</td>
+        <td>{salesQuanty.U_CusPo}</td>
+        <td>{salesQuanty.U_SaleNo}</td>
+        <td>{salesQuanty.U_ItemShort}</td>
+        <td>{salesQuanty.U_Quantity}</td>
+        <td>{salesQuanty.U_Docket}</td>
+        <td>{salesQuanty.U_CourName}</td>
+        <td>{salesQuanty.U_BillNo}</td>
+        <td>{salesQuanty.U_Remarks}</td>
       </tr>
     ))
   } else {
     resultData = tabledata.map((salesQuanty) => (
       <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>
-        <th scope="row">
+        {/* <th scope="row">
           <input
             type="checkbox"
             checked={salesQuanty.selected}
@@ -176,11 +171,20 @@ const SiTable = (props) => {
             id="rowcheck{salesQuanty.DocNum}"
             onChange={(e) => onItemCheck(e, salesQuanty)}
           />
-        </th>
-        <td>{salesQuanty.DocNum}</td>
-        <td>{stringSplit(salesQuanty.DocDate)}</td>
-        <td>{salesQuanty.CardName}</td>
-        <td>{salesQuanty.DocTotal}</td>
+        </th> */}
+        <td>{salesQuanty.U_Voucher}</td>
+        <td>{stringSplit(salesQuanty.U_VouchrDte)}</td>
+        <td>{salesQuanty.U_CardCode}</td>
+        <td>{salesQuanty.U_CardName}</td>
+        <td>{salesQuanty.U_ItemCode}</td>
+        <td>{salesQuanty.U_CusPo}</td>
+        <td>{salesQuanty.U_SaleNo}</td>
+        <td>{salesQuanty.U_ItemShort}</td>
+        <td>{salesQuanty.U_Quantity}</td>
+        <td>{salesQuanty.U_Docket}</td>
+        <td>{salesQuanty.U_CourName}</td>
+        <td>{salesQuanty.U_BillNo}</td>
+        <td>{salesQuanty.U_Remarks}</td>
       </tr>
     ))
   }
@@ -203,12 +207,12 @@ const SiTable = (props) => {
         </div>
 
 
-        <div className="col-md-4 col-sm-4">
-          <SiModal onClick={() => getSelectedRows(SelectedList)} clickedData={SelectedList} main={SelectedList.length}>
+        {/* <div className="col-md-4 col-sm-4">
+          <PdModal onClick={() => getSelectedRows(SelectedList)} clickedData={SelectedList} main={SelectedList.length}>
 
-          </SiModal>
+          </PdModal>
 
-        </div>
+        </div> */}
         <div className="col-md-4 col-sm-4">
           <ReactPaginate
             previousLabel={"prev"}
@@ -231,7 +235,7 @@ const SiTable = (props) => {
           <table className="table ">
             <thead>
               <tr>
-                <th scope="col">
+                {/* <th scope="col">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -239,7 +243,7 @@ const SiTable = (props) => {
                     id="mastercheck"
                     onChange={(e) => onMasterCheck(e)}
                   />
-                </th>
+                </th> */}
 
                 {props.titles.map((title, i) => <th key={i} scope="col">{title}</th>)}
 
@@ -263,4 +267,4 @@ const SiTable = (props) => {
 }
 
 
-export default SiTable;
+export default CdTable;

@@ -254,7 +254,6 @@ var App = function () {
 
         // Configure collapsible functionality
         $('.' + navClass).each(function() {
-            debugger
             $(this).find('.' + navItemClass).has('.' + navSubmenuClass).children('.' + navItemClass + ' > ' + '.' + navLinkClass).not('.disabled').on('click', function (e) {
                 e.preventDefault();
 
@@ -280,8 +279,6 @@ var App = function () {
         // Disable click in disabled navigation items
         $(document).on('click', '.' + navClass + ' .disabled', function(e) {
             e.preventDefault();
-            debugger
-
         });
 
         // Scrollspy navigation

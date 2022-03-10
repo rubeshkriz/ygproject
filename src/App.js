@@ -7,8 +7,10 @@ Route,
 import SaleOrder from "./Pages/SaleOrder/SaleOrder";
 import SalesInvoice from "./Pages/SalesInvoice/SalesInvoice";
 import PenaltyDetails from "./Pages/PenaltyDetails/PenaltyDetails";
+import CourierDetails from "./Pages/CourierDetails/CourierDetails";
 import CustomerOutstanding from "./Pages/CustomerOutstanding/CustomerOutstanding";
 import StockReport from "./Pages/StockReport/StockReport";
+import Distributor from "./Pages/Distributor/Distributor";
 import BackLogReport from "./Pages/BackLogReport/BackLogReport";
 import PurchaseOrder from "./Pages/PurchaseOrder/PurchaseOrder";
 import ADR from "./Pages/ADR/ADR";
@@ -49,8 +51,14 @@ function App() {
           <Route exact path="/PenaltyDetails">
             <PenaltyDetails />
           </Route>
+          <Route exact path="/CourierDetails">
+            <CourierDetails />
+          </Route>
           <Route exact path="/StockReport">
             <StockReport />
+          </Route>
+          <Route exact path="/Distributor">
+            <Distributor />
           </Route>
           <Route exact path="/BackLogReport">
             <BackLogReport />

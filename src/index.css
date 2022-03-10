@@ -21,39 +21,41 @@ code {
   outline: none;
 }
 .pagination > .active > a{
-  background-color: #E67E22; ;
-  border-color: #E67E22; ;
+  background-color: #3498DB; ;
+  border-color: #3498DB; ;
   color: #fff;
 }
 .pagination > li > a{
-  border: 1px solid #E67E22; ;
+  border: 1px solid #3498DB; ;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
 }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-  background-color: #E67E22; ;
-  border-color: #E67E22;;
+  background-color: #3498DB; ;
+  border-color: #3498DB;;
   outline: none ;
 }
 .pagination > li > a, .pagination > li > span{
-  color: #E67E22;
+  color: #3498DB;
 }
 .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
   border-radius: unset
 }
 
-.prompt{
-  margin: 10px;
-}
+
 
 @media screen and (max-width: 800px) {
-  .prompt{
-    margin-left: 0px;
+  .smInput{
+    margin-bottom: 10px;
   }
 
   #myModal{
     margin-bottom: 5px;
+  }
+
+  #navbar-footer{
+    display: block;
   }
 }
 
@@ -95,7 +97,7 @@ code {
 }
 
 .table-responsive::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, .5);
+  background-color: #2980B9;
   border-radius: 10px;
   border: 2px solid #ffffff;
 }
@@ -110,17 +112,25 @@ code {
 }
 
 .navbar{
-  background-color: #E67E22;
+  background-color: #3498DB;
 }
 .btn{
-  background-color: #E67E22;
+  background-color: #3498DB;
   border: none;
 }
 .btn:hover{
-  background-color: #D35400;
+  background-color: #2980B9;
   border: none;
 }
 
 #footer {
   color: #fff;
+}
+
+#Indus, #ItemAdd{
+  color: #fff;
+}
+
+.formBtn{
+  padding-right: 0;
 }

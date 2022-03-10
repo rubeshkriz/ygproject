@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactPaginate from 'react-paginate';
-
-import { getSalesInvoice } from '../../Service/api';
-import SiModal from "../OurModal/SiModal"
-import Cookies from 'js-cookie'
-import { useHistory } from 'react-router-dom';
-
+import { Distributor } from '../../Service/api';
+import DatePickerIn from "../../js/DatePickerIn";
+import PickerDatein from "../../js/PickerDatein";
+import $ from "jquery";
 
 
 
 
-const SiTable = (props) => {
-  const history = useHistory();
-	let clientEmpId 
-	let clientToken 
+const CdTable = (props) => {
+  useEffect(() => {
+		// $('#DateSelect').click(function(){
+    //   $('.daterangepicker').css('display','block');
+    // });	
+    // $('.applyBtn').click(function(){
+    //   $('.daterangepicker').css('display','none');
+    // });	
+    // $('.cancelBtn').click(function(){
+    //   $('.daterangepicker').css('display','none');
+    // });	
+	},[]);
+    let valuebyMonth = 3
 
   const inputEl = useRef("");
 
@@ -69,18 +76,16 @@ const SiTable = (props) => {
   //////////////////////////
 
   useEffect(() => {
+    // $('.daterange-basic').click(function(){
+    //     $('.daterangepicker ').css("display","block");
+    // });
+    
+    
     getSalesQuotationDatas();
   }, []);
 
   const getSalesQuotationDatas = async () => {
-		// clientEmpId = localStorage.getItem("empID");
-		clientEmpId = Cookies.get("empID")
-		clientToken = Cookies.get("token")
-    if(!clientToken){
-      history.push('/Login')
-    }
-
-    let response = await getSalesInvoice(clientToken,clientEmpId);
+    let response = await Distributor();
     if (response) {
       setList(response.data.message);
       var data = response.data.message;
@@ -148,40 +153,71 @@ const SiTable = (props) => {
   if (searchResults.length > 0) {
     console.log(`searchResults ${searchResults}`)
 
-    resultData = searchResults.map((salesQuanty) => (
-      <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>
-        <th scope="row">
-          <input
-            type="checkbox"
-            checked={salesQuanty.selected}
-            className="form-check-input"
-            id="rowcheck{salesQuanty.DocNum}"
-            onChange={(e) => onItemCheck(e, salesQuanty)}
-          />
-        </th>
-        <td>{salesQuanty.DocNum}</td>
-        <td>{stringSplit(salesQuanty.DocDate)}</td>
-        <td>{salesQuanty.CardName}</td>
-        <td>{salesQuanty.DocTotal}</td>
-      </tr>
+    resultData = searchResults.map((salesQuanty, i) => (
+        <>
+        <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+      <th scope="row">{props.titles[0]}</th>
+      <td>{salesQuanty.Total}</td>
+      <td></td>
+      <td>{salesQuanty.ActualTotal}</td>
+      <td></td>        
+    </tr>
+    <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+      <th scope="row">{props.titles[1]}</th>
+      <td>{salesQuanty.AbTotal}</td>
+      <td></td>
+      <td>{salesQuanty.AbActualTotal}</td>
+      <td></td>
+    </tr>
+    <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+      <th scope="row">{props.titles[3]}</th>
+      <td>{salesQuanty.GbTotal}</td>
+      <td></td>
+      <td>{salesQuanty.GbActualTotal}</td>
+      <td></td>
+    </tr>
+    <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+      <th scope="row">{props.titles[2]}</th>
+      <td>{salesQuanty.InsertTotal}</td>
+      <td></td>
+      <td>{salesQuanty.InsertActualTotal}</td>
+      <td></td>
+    </tr>
+    </>
     ))
   } else {
-    resultData = tabledata.map((salesQuanty) => (
-      <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>
-        <th scope="row">
-          <input
-            type="checkbox"
-            checked={salesQuanty.selected}
-            className="form-check-input"
-            id="rowcheck{salesQuanty.DocNum}"
-            onChange={(e) => onItemCheck(e, salesQuanty)}
-          />
-        </th>
-        <td>{salesQuanty.DocNum}</td>
-        <td>{stringSplit(salesQuanty.DocDate)}</td>
-        <td>{salesQuanty.CardName}</td>
-        <td>{salesQuanty.DocTotal}</td>
+    resultData = tabledata.map((salesQuanty,i) => (        
+      <>
+          <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+        <th scope="row">{props.titles[0]}</th>
+        <td>{salesQuanty.Total}</td>
+        <td>{salesQuanty.Total/12*valuebyMonth}</td>
+        <td>{salesQuanty.ActualTotal}</td>
+        <td>{salesQuanty.ActualTotal/(salesQuanty.Total/12*valuebyMonth)*100} %</td>        
       </tr>
+      <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+        <th scope="row">{props.titles[1]}</th>
+        <td>{salesQuanty.AbTotal}</td>
+        <td>{salesQuanty.AbTotal/12*valuebyMonth}</td>
+        <td>{salesQuanty.AbActualTotal}</td>
+        <td>{salesQuanty.AbActualTotal/(salesQuanty.Total/12*valuebyMonth)*100} %</td>
+      </tr>
+      <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+        <th scope="row">{props.titles[3]}</th>
+        <td>{salesQuanty.GbTotal}</td>
+        <td>{salesQuanty.GbTotal/12*valuebyMonth}</td>
+        <td>{salesQuanty.GbActualTotal}</td>
+        <td>{salesQuanty.GbActualTotal/(salesQuanty.Total/12*valuebyMonth)*100} %</td>
+      </tr>
+      <tr key={salesQuanty.DocNum} className={salesQuanty.selected ? "selected" : ""}>    
+        <th scope="row">{props.titles[2]}</th>
+        <td>{salesQuanty.InsertTotal}</td>
+        <td>{salesQuanty.InsertTotal/12*valuebyMonth}</td>
+        <td>{salesQuanty.InsertActualTotal}</td>
+        <td>{salesQuanty.InsertActualTotal/(salesQuanty.Total/12*valuebyMonth)*100} %</td>
+      </tr>
+      </>
+      
     ))
   }
 
@@ -189,6 +225,13 @@ const SiTable = (props) => {
   return (
     <div className="container">
       <div className="row">
+      <div className="col-md-3">
+											<div className="form-group">
+                                            <input type="text" id="DateSelect" class="form-control daterange-basic smInput" value="01/01/2015 - 01/31/2015" /> 
+			                                
+                                            </div>
+										</div>
+
 
         <div className="col-md-3 col-sm-3">
           <input
@@ -203,13 +246,13 @@ const SiTable = (props) => {
         </div>
 
 
-        <div className="col-md-4 col-sm-4">
-          <SiModal onClick={() => getSelectedRows(SelectedList)} clickedData={SelectedList} main={SelectedList.length}>
+        {/* <div className="col-md-4 col-sm-4">
+          <PdModal onClick={() => getSelectedRows(SelectedList)} clickedData={SelectedList} main={SelectedList.length}>
 
-          </SiModal>
+          </PdModal>
 
-        </div>
-        <div className="col-md-4 col-sm-4">
+        </div> */}
+        <div className="col-md-3 col-sm-3">
           <ReactPaginate
             previousLabel={"prev"}
             nextLabel={"next"}
@@ -227,11 +270,19 @@ const SiTable = (props) => {
       </div>
 
       <div className="row">
+          
         <div className="col-md-12 table-responsive">
           <table className="table ">
             <thead>
+                <tr>
+                    <th></th>
+                    <th>Anual</th>
+                    <th>YTD</th>
+                    <th>Actual</th>
+                    <th>% Achivement</th>
+                </tr>
               <tr>
-                <th scope="col">
+                {/* <th scope="col">
                   <input
                     type="checkbox"
                     className="form-check-input"
@@ -239,9 +290,9 @@ const SiTable = (props) => {
                     id="mastercheck"
                     onChange={(e) => onMasterCheck(e)}
                   />
-                </th>
+                </th> */}
 
-                {props.titles.map((title, i) => <th key={i} scope="col">{title}</th>)}
+                {/* {props.titles.map((title, i) => <th key={i} scope="col">{title}</th>)} */}
 
 
               </tr>
@@ -257,10 +308,13 @@ const SiTable = (props) => {
 
         </div>
       </div>
+      {/* <DatePickerIn />
+      <PickerDatein /> */}
+     
 
     </div>
   );
 }
 
 
-export default SiTable;
+export default CdTable;

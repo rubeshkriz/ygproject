@@ -24,8 +24,7 @@ function MainSideBar() {
 				</Link>
 				<span className="font-weight-semibold">Main sidebar</span>
 				<a href="/" className="sidebar-mobile-expand">
-					<i className="icon-screen-full"></i>
-					<i className="icon-screen-normal"></i>
+					
 				</a>
 			</div>
 			{/* <!-- /sidebar mobile toggler --> */}
@@ -126,7 +125,7 @@ function MainSideBar() {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/" className="nav-link">
+							<Link to="/CourierDetails" className="nav-link">
 							<Box size={22} className="oIcons" />
 								<span>
 									Courier Details
@@ -143,7 +142,7 @@ function MainSideBar() {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/" className="nav-link">
+							<Link to="/Distributor" className="nav-link">
 							<BarChartSteps size={22} className="oIcons" />							
 								<span>
 									DTA
