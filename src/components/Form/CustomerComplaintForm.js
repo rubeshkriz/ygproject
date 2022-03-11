@@ -162,7 +162,7 @@ function CustomerComplaintForm() {
                                           <div className="col-md-3">
                                               <div className="form-group">
                                                   <label>Doc Date</label>
-                                                  <input type="text" name="U_DocDate" className="form-control" values={FormValues.U_DocDate} onChange={handleChange} placeholder="Doc Date"/>
+                                                  <input type="date" name="U_DocDate" className="form-control" values={FormValues.U_DocDate} onChange={handleChange} placeholder="Doc Date"/>
                                           <p>{formErrors.U_DocDate}</p>
                                               </div>
                                           </div>                                           

@@ -1,25 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactPaginate from 'react-paginate';
 import { Distributor } from '../../Service/api';
-import DatePickerIn from "../../js/DatePickerIn";
-import PickerDatein from "../../js/PickerDatein";
-import $ from "jquery";
 
 
 
 
 const CdTable = (props) => {
-  useEffect(() => {
-		// $('#DateSelect').click(function(){
-    //   $('.daterangepicker').css('display','block');
-    // });	
-    // $('.applyBtn').click(function(){
-    //   $('.daterangepicker').css('display','none');
-    // });	
-    // $('.cancelBtn').click(function(){
-    //   $('.daterangepicker').css('display','none');
-    // });	
-	},[]);
+  
     let valuebyMonth = 3
 
   const inputEl = useRef("");
@@ -308,8 +295,7 @@ const CdTable = (props) => {
 
         </div>
       </div>
-      {/* <DatePickerIn />
-      <PickerDatein /> */}
+      
      
 
     </div>

@@ -15,7 +15,7 @@ function MainSideBar() {
 	},[]);
   return (
     // <!-- Main sidebar -->
-		<div className="sidebar sidebar-light sidebar-main sidebar-expand-md align-self-start">
+		<div id="fixSideBar" className="sidebar sidebar-light sidebar-main sidebar-expand-md align-self-start">
 
 			{/* <!-- Sidebar mobile toggler --> */}
 			<div  className="sidebar-mobile-toggler text-center">
@@ -36,8 +36,8 @@ function MainSideBar() {
 
 										
 					{/* <!-- Main navigation --> */}
-					<div className="card-body p-0">
-						<ul className="nav nav-sidebar" data-nav-type="accordion">
+					<div className="card-body p-0"id="SidebarNow" id="SidebarNow">
+						<ul className="nav nav-sidebar" data-nav-type="accordion" >
 
 							{/* <!-- Main --> */}
 							<li className="nav-item-header mt-0"><div className="text-uppercase font-size-x22line-height-xs">Main</div> <i className="icon-menu" title="Main"></i></li>

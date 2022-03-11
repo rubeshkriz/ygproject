@@ -60,7 +60,7 @@ code {
 }
 
 .oIcons{
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .myLogo{
@@ -134,3 +134,43 @@ code {
 .formBtn{
   padding-right: 0;
 }
+
+
+#fixSideBar{
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+
+#fixSideBar::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+#fixSideBar::-webkit-scrollbar:vertical {
+  width: 12px;
+}
+
+#fixSideBar::-webkit-scrollbar:horizontal {
+  height: 12px;
+}
+
+#fixSideBar::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 10px;
+  border: 2px solid #ffffff;
+}
+
+#fixSideBar::-webkit-scrollbar-track {
+  border-radius: 10px;  
+  background-color: #ffffff; 
+}
+/* .fexpButton{
+  display: flex;
+  flex-direction: row;
+}
+.expButton{
+  margin-right: 5px;
+  padding: 10px;
+  width: 0;
+  height: 30px;
+} */

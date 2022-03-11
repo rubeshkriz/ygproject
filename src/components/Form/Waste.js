@@ -1,27 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { PersonBadge } from 'react-bootstrap-icons';
 import {addPO, poItemData} from '../../Service/api';
-import DataExtensionSelect from  "../../js/DataExtensionSelect";
-import Appj from "../../js/Appj";
-import FormSelect from "../../js/FormSelect";
-import $ from "jquery";
-import ItemNow from './ItemNow';
+
 import BookView from "./bookView";
 import "./styles.css";
 
 
 
-function Waste() {
-  let ItemDetailsForm = () => {
-    "<ItemNow />"
-  }
 
-  useEffect(() => {
-    var output = '';
-		$('#ItemAdd').click(function(){
-      $('#looprow').after(output)})
-	},[]); 
-  
+function Waste() {  
   let itemsSummary
   const inputEl = useRef("");
     const initialValues = {id:"", DocEntry:"", CardCode:"", CardName:"",  PoNumber:"", Status:"", DocDate:"", Utype:"", TaxDate:"",
@@ -49,7 +35,7 @@ function Waste() {
             return AllItemList.ItemCode == value;
           }
           // console.log(`result= ${result[0].ItemName}`);
-          setFormValues({ ...FormValues, Dscription: result[0].ItemName});
+          setFormValues({ ...FormValues, Dscription: result[0].ItemName, ItemCode: result[0].ItemCode});
           console.log(FormValues);
 
         }else{
@@ -141,13 +127,7 @@ function Waste() {
       const getitemDetails = async () => {
         let response = await poItemData();
         if (response) {
-          setItemList(response.data.message);
-        //   var data = response.data.message;
-        //   var slice = data.slice(offset, offset + perPage)
-    
-    
-        //   setpageCount(Math.ceil(data.length / perPage))
-        //   settabledata(slice)
+          setItemList(response.data.message);        
         }
       }
 
@@ -159,7 +139,7 @@ function Waste() {
         
 					<div className="col-lg-12">
 			            <div className="card">
-         <pre>{JSON.stringify(FormValues, undefined, 2)}</pre>                       
+         {/* <pre>{JSON.stringify(FormValues, undefined, 2)}</pre>                        */}
 
 			                <div className="card-body">
 			                	<form onSubmit={handleSubmit}>
@@ -212,8 +192,7 @@ function Waste() {
 										<div className="col-md-4">
 											<div className="form-group">
 												<label>Document Date</label>
-                        {/* <input type="text" class="form-control daterange-single" name="DocDate" values="05/09/2022" onChange={handleChange}/> */}
-                                        <input type="text" id="datePicker" name="DocDate" className="form-control" values={FormValues.DocDate} onChange={handleChange} placeholder="Document Date"/>
+                        <input type="date" className="form-control" placeholder="Enter Date"  name="DocDate" values={FormValues.DocDate} onChange={handleChange}/>
                                                 <p>{formErrors.DocDate}</p>
 			                                
                                             </div>
@@ -222,7 +201,9 @@ function Waste() {
                                         <div className="col-md-4">
 											<div className="form-group">
 												<label>Customer PO-Date</label>
-				                                <input type="text" name="TaxDate" className="form-control" values={FormValues.TaxDate} onChange={handleChange} placeholder="Customer PO-Date"/>
+                        <input type="date" className="form-control" placeholder="Customer PO-Date" name="TaxDate" values={FormValues.TaxDate} onChange={handleChange}/>
+
+				                                {/* <input type="text" name="TaxDate" className="form-control" values={FormValues.TaxDate} onChange={handleChange} placeholder="Customer PO-Date"/> */}
                                                 <p>{formErrors.TaxDate}</p>
 			                                
                                             </div>
@@ -257,34 +238,16 @@ function Waste() {
 										</div>
 									</div>
 
-                                    <h4>Item Details</h4>
+                                    {/* <h4>Item Details</h4> */}
 
-                         {ItemDetailsForm}
-                         <div id="looprow" className="row">
+                         {/* <div className="row">
     <div className="col-md-2">
       <div className="form-group">
         <label>Item Code</label>		                                
                         <input type="text" name="ItemCode" className="form-control" values={FormValues.ItemCode} onChange={handleChange} placeholder="Item Code"/>
                                 <p>{formErrors.ItemCode}</p>
                       
-                            </div>
-       {/* <div class="form-group">
-  <label>Results background color</label>
-  <select multiple="multiple" class="form-control select" data-container-css-class="bg-teal-400" data-fouc>
-    <optgroup label="Mountain Time Zone">
-      <option value="AZ" selected>Arizona</option>
-      <option value="CO">Colorado</option>
-      <option value="ID">Idaho</option>
-      <option value="WY">Wyoming</option>
-    </optgroup>
-    <optgroup label="Central Time Zone">
-      <option value="IL" selected>Illinois</option>
-      <option value="IA">Iowa</option>
-      <option value="KS" selected>Kansas</option>
-      <option value="KY">Kentucky</option>
-    </optgroup>
-  </select>
-</div> */}
+                            </div>   
     </div>
 
     <div className="col-md-3">
@@ -349,8 +312,12 @@ function Waste() {
                       
                             </div>
     </div>
-  </div>
-  <BookView />
+  </div> */}
+  
+ 
+
+  
+  <BookView itemcode={FormValues.ItemCode} description={FormValues.Dscription}/>
 
                   
                               <div className="text-right">
@@ -361,9 +328,7 @@ function Waste() {
 						</div>
 					</div>
 				</div>
-        {DataExtensionSelect}
-        {Appj}
-        {FormSelect}
+        
     </div>
   )
 }
